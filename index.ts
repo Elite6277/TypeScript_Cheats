@@ -1,24 +1,31 @@
-//4 Практика типизации кода
+//5 Тип never
 
-const currRate: string = "1.05";
+// Бывают функции которые никогда не доходят до return undefined  в случае если ничего не возвращяется
 
-const fetchCurr = (response: string) => {
-  const data = JSON.parse(response);
-  return data;
+// Мы должны использовать never тогда когда это функция заканчивается без возвращения  значения в принципе
+
+// Выбпрос ошибок это тот случай когда используется never
+
+const isBirthdayData: boolean = true;
+let ageData: number = 40;
+const userNameData: string = "John";
+
+const createError = (msg: string) => {
+  throw new Error(msg);
+  //   console.log(1);
 };
 
-function transferEurToUsd(
-  available: boolean,
-  amount: number,
-  commission: number
-): void {
-  if (available) {
-    let res = fetchCurr(currRate) * amount * commission;
-    console.log(res);
-    // Или запись в элемент на странице вместо консоли
-  } else {
-    console.log("Сейчас обмен недоступен");
+function logBrtMsg(isBirthday: boolean, userName: string, age: number): string {
+  if (isBirthday == true) {
+    return `Congrats ${userName.toUpperCase()}, age ${age + 1}`;
+  } else if (isBirthday === false) {
+    return "Too bad";
   }
+  // Вот эта проверка наз-ся исчерпывающей проверкой
+  return createError("Error");
 }
 
-transferEurToUsd(true, 500, 1.05);
+logBrtMsg(isBirthdayData, userNameData, 40);
+
+// Существует простой тип never который значит что ничего не присваивается и ничего не возвращяется он может использоваться в функциях которыее действительно ничего не возвращяют, самый частый пример который мы будем встречать это возврат каких то ошибок которые выкидывают какую то ошибку  в среду например это консоль браузера, так же его можно получить при  запуске бесконечных циклов внутри функции либо запуске рекурсии который никогда не закончится
+// Так же такой тип данных когда он возвращяется из какой то функции можно использовать в некоторых функциональностях часто они наз-ся исчерпывающей проверкой и позволяют вам в конце функции вернуть never  и сказать что из это функции вообще ничего не возвращяется  даже undefined, в свою очередь  это позволяет вам ограничивать кол выходящих параметров

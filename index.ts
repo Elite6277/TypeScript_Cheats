@@ -1,44 +1,38 @@
-//  2_TypeScript_Использование системы типов в функциях
-const isBirthdayData: boolean = true;
-let ageData: number = 40;
-const userNameData: string = "John";
+// 3_Специальный тип any
 
-// function logBrtMsg(isBirthday: boolean, userName: string, age: number): void {
-//   if (isBirthday) {
-//     console.log(`Congrats ${userName.toUpperCase()}, age: ${age + 1}`);
-//   }
+// ! Таких записей стоит избегать
+// let salary;
+// salary = 5000;
 
-//   return undefined;
-// }
+// ! Вот проавильный вариант
+let salary: number;
+salary = 5000;
 
-// function logBrtMsg(isBirthday: boolean, userName: string, age: number): string {
-//   if (isBirthday) {
-//     return `Congrats ${userName.toUpperCase()}, age: ${age + 1}`;
-//   } else {
-//     return "Error";
-//   }
-// }
-const logBrtMsg = (
-  isBirthday: boolean,
-  userName: string,
-  age: number
-): string => {
+//! Главный совет который поможет при работе с TypeScript старайтесь избегать этого типа, чем его больше в TypeScript тем больше потенциальных багов и меньше пользы от самого языка, ведь если тип может быть любым то какой смысл от системы типов
+
+//! Сейчас мы разберем несколько примеров когда any может появиться  и что с ним делать в таком случае
+
+//! Тип any это зло
+
+//! Бывают ли ситуации когда нужно самому использовать any? да бывают но крайне крайне редко, так что старайтесь всегда избегать any вообще в любых ситуациях, так ваш код будет куда безопаснее, а значит и вас избавит от лишних проблем
+
+const userData =
+  '{"isBirthdayData": true, "ageData": 40, "userNameData": "John}';
+
+const userObj: {
+  isBirthdayData: boolean;
+  userNameData: string;
+  ageData: number;
+} = JSON.parse(userData);
+
+console.log(userObj.smt());
+
+function logBrtMsg(isBirthday: boolean, userName: string, age: number): string {
   if (isBirthday) {
     return `Congrats ${userName.toUpperCase()}, age: ${age + 1}`;
   } else {
     return "Error";
   }
-};
+}
 
-logBrtMsg(isBirthdayData, userNameData, 40);
-
-// ? Если говорить простыми словами то void после функции значит что ничего не возвращяет viod это пустотта нечего
-// ? Любая функция что то возвращяет даже если это нигде не указано он по defaultу вернет нам undefined
-
-// ? В TypeScript есть механизм который позволяет  нам указывать что именно будет возвращять функция, и если вдруг она логически ничего не возвращяет то можно подставить viod что и делает type script самостоятельно но при возможности нужно это прописывать самому
-
-// ? Void это не только отсутствие возвращяемого значения но и его полное игнорирование это полезно при совмещении некоторых функций
-
-// ? Возможна диструктуризация  объекта внутри  аргумента функции как это часто делается в реальности
-
-// ? По возможности всегда нужно указывать тип возвращяемого значения функции, когда тип возврящяемого значения явно указан намного проще и удобнее читать любую функцию
+logBrtMsg();

@@ -1,29 +1,21 @@
-// Типы null и undefined
+//  Типы BigInt и Symbol
 
-//?  Null это отсутствие чего либо полностью
+//? Symbol это тип данных  в JavaScript необхдодим для создания уникальных идентификаторов в том числе и скрытые при обычном доступе в свойства объекта которые не показывается при переборе объекта
 
-//? Undefined значит что  что то есть но значение его не определено
+let id: symbol = Symbol("id");
 
-// ? null это частный случай any он может относится к чему угодно
+const data = {
+  [id]: 1,
+};
 
-const test: null = null;
-const test2: any = null;
-const test3: string = null;
-const test4: number = null;
+console.log(data[id]);
 
-const test5: undefined = undefined;
-const test6: any = undefined;
-const test7: string = undefined;
+// ?Тип данных BigInt позволяе нам безопасно работать с числами которые за диапазоны стандартного типа number
 
-let smth;
+const num1: bigint = 1n;
+const num2: bigint = 2n;
 
-function getRandomData() {
-  if (Math.random() < 0.5) {
-    return null;
-  } else {
-    return "Some data";
-  }
-}
-
-const data = getRandomData();
-const trimmedData = data ? data.trim() : null;
+//  ? Мы не можем складывать BigInt  с обычным number
+console.log(num1 + 5);
+//
+console.log(num1 + num2);

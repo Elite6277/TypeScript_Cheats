@@ -1,21 +1,40 @@
-//  Типы BigInt и Symbol
+// Типизация для объектов и диструктуризация
 
-//? Symbol это тип данных  в JavaScript необхдодим для создания уникальных идентификаторов в том числе и скрытые при обычном доступе в свойства объекта которые не показывается при переборе объекта
+const isBirthdayData: boolean = true;
+let ageData: number = 40;
+const userNameData: string = "John";
 
-let id: symbol = Symbol("id");
-
-const data = {
-  [id]: 1,
+const userData = {
+  isBirthdayData: true,
+  ageData: 40,
+  userNameData: "John",
+  messages: {
+    error: "Error",
+  },
 };
 
-console.log(data[id]);
+const createError = (msg: string) => {
+  throw new Error(msg);
+};
 
-// ?Тип данных BigInt позволяе нам безопасно работать с числами которые за диапазоны стандартного типа number
+function logBrtMsg({
+  isBirthdayData,
+  userNameData,
+  ageData,
+  messages: { error },
+}: {
+  isBirthdayData: boolean;
+  userNameData: string;
+  ageData: number;
+  messages: { error: string };
+}): string {
+  if (isBirthdayData) {
+    return `Congrats ${userNameData.toUpperCase()}, age: ${ageData + 1}`;
+  } else {
+    return createError(error);
+    return "Too bad";
+  }
+}
 
-const num1: bigint = 1n;
-const num2: bigint = 2n;
-
-//  ? Мы не можем складывать BigInt  с обычным number
-console.log(num1 + 5);
-//
-console.log(num1 + num2);
+// logBrtMsg(isBirthdayData, userNameData, 40);
+console.log(logBrtMsg(userData));

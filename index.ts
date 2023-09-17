@@ -1,31 +1,29 @@
-//5 Тип never
+// Типы null и undefined
 
-// Бывают функции которые никогда не доходят до return undefined  в случае если ничего не возвращяется
+//?  Null это отсутствие чего либо полностью
 
-// Мы должны использовать never тогда когда это функция заканчивается без возвращения  значения в принципе
+//? Undefined значит что  что то есть но значение его не определено
 
-// Выбпрос ошибок это тот случай когда используется never
+// ? null это частный случай any он может относится к чему угодно
 
-const isBirthdayData: boolean = true;
-let ageData: number = 40;
-const userNameData: string = "John";
+const test: null = null;
+const test2: any = null;
+const test3: string = null;
+const test4: number = null;
 
-const createError = (msg: string) => {
-  throw new Error(msg);
-  //   console.log(1);
-};
+const test5: undefined = undefined;
+const test6: any = undefined;
+const test7: string = undefined;
 
-function logBrtMsg(isBirthday: boolean, userName: string, age: number): string {
-  if (isBirthday == true) {
-    return `Congrats ${userName.toUpperCase()}, age ${age + 1}`;
-  } else if (isBirthday === false) {
-    return "Too bad";
+let smth;
+
+function getRandomData() {
+  if (Math.random() < 0.5) {
+    return null;
+  } else {
+    return "Some data";
   }
-  // Вот эта проверка наз-ся исчерпывающей проверкой
-  return createError("Error");
 }
 
-logBrtMsg(isBirthdayData, userNameData, 40);
-
-// Существует простой тип never который значит что ничего не присваивается и ничего не возвращяется он может использоваться в функциях которыее действительно ничего не возвращяют, самый частый пример который мы будем встречать это возврат каких то ошибок которые выкидывают какую то ошибку  в среду например это консоль браузера, так же его можно получить при  запуске бесконечных циклов внутри функции либо запуске рекурсии который никогда не закончится
-// Так же такой тип данных когда он возвращяется из какой то функции можно использовать в некоторых функциональностях часто они наз-ся исчерпывающей проверкой и позволяют вам в конце функции вернуть never  и сказать что из это функции вообще ничего не возвращяется  даже undefined, в свою очередь  это позволяет вам ограничивать кол выходящих параметров
+const data = getRandomData();
+const trimmedData = data ? data.trim() : null;
